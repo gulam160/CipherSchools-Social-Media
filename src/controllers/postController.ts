@@ -102,14 +102,14 @@ export const handleDeletePost = async (req: Request, res: Response) => {
 
 // Search for posts by username or hashtag.
 export const searchPost = async (req: Request, res: Response) => {
-  const searchTerms = req.query.q as string;
+  const searchTerms = req.query.search as string;
   try {
     if (!searchTerms) {
       res.status(400).json({ msg: "Please provide a query parameter" });
     } else {
       let query;
       if (searchTerms.startsWith("#")) {
-        query = { hashtags: searchTerms.substring(1) };
+        query = { hashtags: searchTerms };
       } else {
         const user = await User.findOne({ name: searchTerms });
         if (!user) {
